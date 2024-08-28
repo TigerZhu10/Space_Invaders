@@ -1,10 +1,10 @@
 import pygame, sys
-from setting import Settings
+from setting import Game_Settings
 
 
 pygame.init()
-game_setting = Settings()
-screen = pygame.display.set_mode(game_setting.WINDOW_HEIGHT, game_setting.WINDOW_WIDTH)
+setting = Game_Settings()
+screen = pygame.display.set_mode((setting.WINDOW_WIDTH, setting.WINDOW_HEIGHT))
 pygame.display.set_caption("Alien coming")
 
 
@@ -16,7 +16,7 @@ def run_game():
             if event.type == pygame.QUIT:
                 sys.exit()
         
-        screen.fill(game_setting.bg_color)
+        screen.fill(setting.bg_color)
 
         pygame.display.flip()
 
