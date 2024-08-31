@@ -1,24 +1,26 @@
 import pygame, sys
-from setting import Game_Settings
-
+from settings import Settings
 
 pygame.init()
-setting = Game_Settings()
-screen = pygame.display.set_mode((setting.WINDOW_WIDTH, setting.WINDOW_HEIGHT))
-pygame.display.set_caption("Alien coming")
+# 创建Object给
+Game_settings = Settings()
 
 
-def run_game():
+screen = pygame.display.set_mode((Game_settings.WINDOW_WIDTH, Game_settings.WINDOW_HEIGHT))
+pygame.display.set_caption("Space Invader!")
+
+def Game_runner():
     game_running = True
     while game_running:
-        # 监控键盘和鼠标的事件
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
                 sys.exit()
-        
-        screen.fill(setting.bg_color)
+
+        screen.fill(Game_settings.bg_color)
 
         pygame.display.flip()
 
 
-run_game()
+
+
+Game_runner()
