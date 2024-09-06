@@ -28,6 +28,4 @@ def Game_runner():
         pygame.display.flip()
 
 
-
-
 Game_runner()

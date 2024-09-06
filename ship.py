@@ -1,4 +1,5 @@
 import pygame
+
 '''
 @Object:
 关于飞船的属性和干的事情放在这个类
@@ -8,3 +9,8 @@ class Ship:
         self.image = pygame.image.load(image)
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
+
+    def display_ship(self):
+        screen.blit(Alien_ship.image, Alien_ship.rect)
+
+
