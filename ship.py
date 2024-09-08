@@ -15,20 +15,3 @@ class Ship:
         self.screen.blit(self.ship_image, self.ship_image_rect)
 
 
-
-
-
-
-
-
-
-
-
-
-
-        # screen.blit(Alien_ship.image, Alien_ship.rect)
-        # self.image = pygame.image.load(image)
-        # self.rect = self.image.get_rect()
-        # self.rect.center = (x, y)
-
-
