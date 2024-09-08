@@ -7,6 +7,6 @@ class Settings:
         self.WINDOW_WIDTH = 1200
         self.WINDOW_HEIGHT = 800
 
-        self.bg_color = (0,255,0)
+        self.bg_color = (0,0,0)
 
 
