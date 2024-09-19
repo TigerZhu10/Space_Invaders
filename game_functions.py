@@ -1,23 +1,44 @@
 import pygame, sys
 
-def check_mouse_key_events(ship):
+def Key_up(ship):
+    #当按键松开的时候把flag重新变为false来停止移动
+
+    for ev in pygame.event.get():         
+        if ev.type == pygame.KEYUP:
+            if ev.key == pygame.K_RIGHT:
+                ship.moving_right = False
+            elif ev.key == pygame.K_LEFT:
+                ship.moving_left = False
+
+
+
+def Key_down(ship):
+    #当按键被按下的时候把flag变成True来连续移动飞船
+    
     for ev in pygame.event.get():
-        if ev.type == pygame.QUIT:
-            sys.exit()
-            
-        #当按键被按下的时候把flag变成True来连续移动飞船
-        elif ev.type == pygame.KEYDOWN:
+        if ev.type == pygame.KEYDOWN:
             if ev.key == pygame.K_RIGHT:
                 ship.moving_right = True
             elif ev.key == pygame.K_LEFT:
                 ship.moving_left = True
 
-        #当按键松开的时候把flag重新变为false来停止移动         
-        elif ev.type == pygame.KEYUP:
-            if ev.key == pygame.K_RIGHT:
-                ship.moving_right = False
-            if ev.key == pygame.K_LEFT:
-                ship.moving_left = False
+
+def check_mouse_key_events(ship):
+    for ev in pygame.event.get():
+        if ev.type == pygame.QUIT:
+            sys.exit()
+
+        Key_up(ship)
+        Key_down(ship)
+            
+        # #当按键被按下的时候把flag变成True来连续移动飞船
+        # elif ev.type == pygame.KEYDOWN:
+        #     if ev.key == pygame.K_RIGHT:
+        #         ship.moving_right = True
+        #     elif ev.key == pygame.K_LEFT:
+        #         ship.moving_left = True
+
+
 
 
     
