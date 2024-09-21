@@ -19,7 +19,7 @@ def Game_runner():
     game_running = True
     while game_running:
         game_functions.check_mouse_key_events(player_ship)
-        game_functions.update_screen(screen, player_ship, game_settings)
+        game_functions.update_screen(screen, player_ship, game_settings, bullet)
 
 
 

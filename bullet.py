@@ -6,13 +6,13 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = display_screen
         self.ship = player_ship
-
-        self.Bullet_rect = pygame.Rect(0,0,3,15)
-        self.Bullet_rect.centerx = self.ship.rect.centerx
-        self.Bullet_rect.top = self.ship.rect.top
+    
+        self.rect = pygame.Rect(0,0,3,15)
+        self.rect.centerx = self.ship.rect.centerx
+        self.rect.top = self.ship.rect.top
 
         #self.bullet_position = float(self.rect.y)
 
-    def display_Bullet(self):
-        pass
+    def display_bullet(self):
+        pygame.draw.rect(self.screen, (0,255,0), self.rect)
         

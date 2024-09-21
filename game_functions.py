@@ -30,8 +30,10 @@ def check_mouse_key_events(ship):
             Key_up(ship, ev)  
               
 
-def update_screen(display_screen, ship, game_settings):
+def update_screen(display_screen, ship, game_settings, bullet):
         display_screen.fill(game_settings.bg_color)
+
+        bullet.display_bullet()
 
         ship.moving_ship()
 
