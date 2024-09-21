@@ -2,6 +2,7 @@ import pygame
 from settings import Settings
 import game_functions
 from ship import Ship
+from bullet import Bullet
 
 pygame.init()
 # Game_settings 得到了Settings里的所有东西(属性和方式)
@@ -12,6 +13,7 @@ pygame.display.set_caption("Space Invader!")
 
 
 Alien_ship = Ship(screen, Game_settings)
+Alien_bullet = Bullet(screen, Ship )
 
 def Game_runner():
     game_running = True
