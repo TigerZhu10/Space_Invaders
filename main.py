@@ -11,7 +11,7 @@ game_settings = Settings()
 screen = pygame.display.set_mode((game_settings.WINDOW_WIDTH, game_settings.WINDOW_HEIGHT))
 pygame.display.set_caption("Space Invader!")
 
-
+#bullet_group = pygame.sprite.Group()
 player_ship = Ship(screen, game_settings)
 bullet = Bullet(screen, player_ship)
 

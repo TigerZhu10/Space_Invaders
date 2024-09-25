@@ -12,8 +12,14 @@ class Bullet(Sprite):
         self.rect.top = self.ship.rect.top
 
         self.bullet_position = float(self.rect.y)
+
     def update(self):
-        self.display_bullet()
+        self.bullet_position -= 0.3
+        self.rect.y = self.bullet_position
+
+    def Bullet_group(self):
+        pass
+
 
     def display_bullet(self):
         pygame.draw.rect(self.screen, (0,255,0), self.rect)

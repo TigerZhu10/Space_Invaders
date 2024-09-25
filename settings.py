@@ -12,5 +12,3 @@ class Settings:
 
         #飞船移动速度
         self.ship_velocity = 0.4
-
-

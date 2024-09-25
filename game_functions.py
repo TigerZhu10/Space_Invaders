@@ -35,6 +35,13 @@ def update_screen(display_screen, ship, game_settings, bullet):
 
         ship.moving_ship()
 
+        bullet.display_bullet()
+
+        bullet.update()
+        print("skind")
+        
+       
+
         ship.display_ship()
         
         # 更新所有活动
