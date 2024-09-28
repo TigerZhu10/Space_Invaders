@@ -10,7 +10,7 @@ def Key_up(ship, event):
 
 
 
-def Key_down(ship, event):
+def Key_down(ship, event, bullet):
 
     #当按键被按下的时候把flag变成True来连续移动飞船
     if event.key == pygame.K_RIGHT:
@@ -18,14 +18,16 @@ def Key_down(ship, event):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = True
 
+    elif event.key == pygame.K_SPACE:
+        bullet.bullet_move = True
 
-def check_mouse_key_events(ship):
+def check_mouse_key_events(ship, bullet):
     for ev in pygame.event.get():
         if ev.type == pygame.QUIT:
             sys.exit()
 
         if ev.type == pygame.KEYDOWN:
-            Key_down(ship, ev)
+            Key_down(ship, ev, bullet)
         if ev.type == pygame.KEYUP:
             Key_up(ship, ev)  
               
@@ -35,14 +37,11 @@ def update_screen(display_screen, ship, game_settings, bullet):
 
         ship.moving_ship()
 
-        bullet.display_bullet()
-
-        bullet.update()
-        print("skind")
-        
-       
-
         ship.display_ship()
+
+        bullet.draw_bullet()
+
+        bullet.display_bullet()
         
         # 更新所有活动
         pygame.display.flip()

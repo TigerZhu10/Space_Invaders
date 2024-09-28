@@ -2,25 +2,28 @@ import pygame
 from pygame.sprite import Sprite
 
 class Bullet(Sprite):
-    def __init__(self, display_screen, player_ship):
+    def __init__(self, display_screen, player_ship, game_settings):
         super().__init__()
+        self.game_settings = game_settings
         self.screen = display_screen
         self.ship = player_ship
     
-        self.rect = pygame.Rect(0,0,3,15)
+        self.rect = pygame.Rect(self.game_settings.bullet_spot)
         self.rect.centerx = self.ship.rect.centerx
         self.rect.top = self.ship.rect.top
 
         self.bullet_position = float(self.rect.y)
+        self.bullet_move = False
 
-    def update(self):
-        self.bullet_position -= 0.3
-        self.rect.y = self.bullet_position
+    def display_bullet(self):
+        if self.bullet_move:
+            self.bullet_position -= self.game_settings.bullet_velocity
+            self.rect.y = self.bullet_position
 
     def Bullet_group(self):
         pass
 
 
-    def display_bullet(self):
-        pygame.draw.rect(self.screen, (0,255,0), self.rect)
+    def draw_bullet(self):
+        pygame.draw.rect(self.screen, self.game_settings.bullet_color, self.rect)
         

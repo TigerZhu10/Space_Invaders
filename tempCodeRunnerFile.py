@@ -1,2 +1,2 @@
 
-Alien_ship = Ship(screen, Game_settings)
+pygame.init()

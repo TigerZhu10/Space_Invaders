@@ -1,6 +1,6 @@
 import pygame
 from settings import Settings
-import game_functions
+import game_functions        
 from ship import Ship
 from bullet import Bullet
 
@@ -13,12 +13,12 @@ pygame.display.set_caption("Space Invader!")
 
 #bullet_group = pygame.sprite.Group()
 player_ship = Ship(screen, game_settings)
-bullet = Bullet(screen, player_ship)
+bullet = Bullet(screen, player_ship, game_settings)
 
 def Game_runner():
     game_running = True
     while game_running:
-        game_functions.check_mouse_key_events(player_ship)
+        game_functions.check_mouse_key_events(player_ship, bullet)
         game_functions.update_screen(screen, player_ship, game_settings, bullet)
 
 
