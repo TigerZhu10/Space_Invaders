@@ -1,4 +1,6 @@
 import pygame, sys
+from bullet import Bullet
+
 
 def Key_up(ship, event):
 
@@ -10,38 +12,47 @@ def Key_up(ship, event):
 
 
 
-def Key_down(ship, event, bullet):
+def Key_down(ship, event, bullet_group, screen, game_settings):
 
     #当按键被按下的时候把flag变成True来连续移动飞船
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
-        ship.moving_left = True
+        ship.moving_left = True 
 
     elif event.key == pygame.K_SPACE:
-        bullet.bullet_move = True
+        if len(bullet_group) < game_settings.bullet_num_allowed:
+            bullet_group.add(Bullet(screen, ship, game_settings))
 
-def check_mouse_key_events(ship, bullet):
+
+def check_mouse_key_events(ship, screen, bullet_group, game_settings):
     for ev in pygame.event.get():
         if ev.type == pygame.QUIT:
             sys.exit()
 
         if ev.type == pygame.KEYDOWN:
-            Key_down(ship, ev, bullet)
+            Key_down(ship, ev, bullet_group, screen, game_settings)
         if ev.type == pygame.KEYUP:
             Key_up(ship, ev)  
               
 
-def update_screen(display_screen, ship, game_settings, bullet):
+def update_screen(display_screen, ship, game_settings, bullet_group):
         display_screen.fill(game_settings.bg_color)
 
         ship.moving_ship()
-
         ship.display_ship()
 
-        bullet.draw_bullet()
-
-        bullet.display_bullet()
+        bullet_group_display(bullet_group)
         
         # 更新所有活动
         pygame.display.flip()
+        
+
+def bullet_group_display(bullet_group):
+    for bullet in bullet_group.sprites():
+            bullet.draw_bullet()
+            bullet.display_bullet()
+        
+    for bullet in bullet_group.copy():
+        if bullet.rect.bottom <= 0:
+            bullet_group.remove(bullet)

@@ -16,12 +16,8 @@ class Bullet(Sprite):
         self.bullet_move = False
 
     def display_bullet(self):
-        if self.bullet_move:
-            self.bullet_position -= self.game_settings.bullet_velocity
-            self.rect.y = self.bullet_position
-
-    def Bullet_group(self):
-        pass
+        self.bullet_position -= self.game_settings.bullet_velocity
+        self.rect.y = self.bullet_position
 
 
     def draw_bullet(self):
