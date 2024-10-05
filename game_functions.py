@@ -33,11 +33,13 @@ def check_mouse_key_events(ship, screen, bullet_group, game_settings):
             Key_up(ship, ev)  
               
 
-def update_screen(display_screen, ship, game_settings, bullet_group):
+def update_screen(display_screen, ship, game_settings, bullet_group, alien):
         display_screen.fill(game_settings.bg_color)
 
         ship.moving_ship()
         ship.display_ship()
+
+        alien.display_alien()
 
         bullet_group_display(bullet_group)
         
