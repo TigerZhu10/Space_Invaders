@@ -6,13 +6,14 @@ from pygame.sprite import Group
 from alien import Alien
 
 pygame.init() 
-# Game_settings 得到了Settings里的所有东西(属性和方式)
+# Game_settings Object that contains every attributes and method 
 game_settings = Settings ()
 
 screen = pygame.display.set_mode((game_settings.WINDOW_WIDTH, game_settings.WINDOW_HEIGHT))
 pygame.display.set_caption("Space Invader!")
 
 alien = Alien(screen)
+alien_group = Group()
 
 player_ship = Ship(screen, game_settings)
 bullet_group = Group()

@@ -3,7 +3,7 @@ import pygame
 
 '''
 @Object:
-关于飞船的属性和干的事情放在这个类
+The attributes and things to do about the ship are placed in this class.
 '''
 class Ship:
     def __init__(self, display_screen, game_settings):

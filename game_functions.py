@@ -4,7 +4,7 @@ from bullet import Bullet
 
 def Key_up(ship, event):
 
-    #当按键松开的时候把flag重新变为false来停止移动
+    #When the button is released, change the flag back to false to stop moving.
     if event.key == pygame.K_RIGHT:
         ship.moving_right = False
     elif event.key == pygame.K_LEFT:
@@ -12,7 +12,8 @@ def Key_up(ship, event):
     
 def Key_down(ship, event, bullet_group, screen, game_settings):
 
-    #当按键被按下的时候把flag变成True来连续移动飞船
+
+    # When the button is pressed, change the flag to True to continuously move the spacecraft
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
@@ -43,7 +44,7 @@ def update_screen(display_screen, ship, game_settings, bullet_group, alien):
 
         bullet_group_display(bullet_group)
         
-        # 更新所有活动
+        # Update every thing on the screen
         pygame.display.flip()
 
 

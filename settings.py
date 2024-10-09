@@ -7,10 +7,10 @@ class Settings:
         self.WINDOW_WIDTH = 1200
         self.WINDOW_HEIGHT = 800
 
-        #背景颜色
+        #Backgroud color
         self.bg_color = (0,0,0)
 
-        #飞船的移动速度
+        #Ship's speed
         self.ship_velocity = 0.4
 
         #bullet color(子弹颜色)
