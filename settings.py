@@ -21,4 +21,4 @@ class Settings:
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_spot = 0, 0, self.bullet_width, self.bullet_height
-        self.bullet_num_allowed = 5
+        self.bullet_num_allowed = 10

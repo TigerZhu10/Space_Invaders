@@ -1,5 +1,6 @@
 import pygame, sys
 from bullet import Bullet
+from alien import Alien
 
 
 def Key_up(ship, event):
@@ -34,18 +35,40 @@ def check_mouse_key_events(ship, screen, bullet_group, game_settings):
             Key_up(ship, ev)  
               
 
-def update_screen(display_screen, ship, game_settings, bullet_group, alien):
+def update_screen(display_screen, ship, game_settings, bullet_group, alien_group):
         display_screen.fill(game_settings.bg_color)
 
         ship.moving_ship()
         ship.display_ship()
 
-        alien.display_alien()
+        alien_group.display_alien()
 
         bullet_group_display(bullet_group)
         
         # Update every thing on the screen
         pygame.display.flip()
+
+
+
+
+
+
+
+
+
+
+def number_of_alien(game_settings, alien):
+    alien_number = 0
+    alien_number = (game_settings.WINDOW_WIDTH - 2 * alien.rect.width) // (2 * alien.rect.width)
+    return alien_number
+
+def alien_group(game_settings,screen):
+    number_alien = number_of_alien(game_settings, alien)
+    alien = Alien(screen)
+    alien_group.add(alien)
+    for 
+     
+
 
 
 def bullet_group_display(bullet_group):
