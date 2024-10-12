@@ -7,8 +7,9 @@ class Alien(Sprite):
         self.screen = screen
         self.image = pygame.image.load("./assets/images/alien.png")
         self.rect = self.image.get_rect()
-        self.rect.centerx = 600
-        self.rect.centery = 400
+
+        self.rect.x = 0
+        self.rect.y = self.rect.height
 
 
     def display_alien(self):

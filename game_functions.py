@@ -41,7 +41,7 @@ def update_screen(display_screen, ship, game_settings, bullet_group, alien_group
         ship.moving_ship()
         ship.display_ship()
 
-        alien_group.display_alien()
+        alien_group.draw(display_screen)
 
         bullet_group_display(bullet_group)
         
@@ -55,18 +55,18 @@ def update_screen(display_screen, ship, game_settings, bullet_group, alien_group
 
 
 
-
-
 def number_of_alien(game_settings, alien):
-    alien_number = 0
-    alien_number = (game_settings.WINDOW_WIDTH - 2 * alien.rect.width) // (2 * alien.rect.width)
-    return alien_number
+    alien_width = alien.rect.width
+    alien_number = (game_settings.WINDOW_WIDTH - 2 * alien_width) // (2 * alien_width)
+    return alien_number, alien_width
 
-def alien_group(game_settings,screen):
-    number_alien = number_of_alien(game_settings, alien)
-    alien = Alien(screen)
-    alien_group.add(alien)
-    for 
+def create_alien_group(game_settings, screen, alien, alien_group):
+    number_alien, alien_width = number_of_alien(game_settings, alien)
+    for alien_num in range(number_alien):
+        alien = Alien(screen)
+        alien.rect.x = alien_width + 2 * alien_width * alien_num
+        alien_group.add(alien)
+   
      
 
 
