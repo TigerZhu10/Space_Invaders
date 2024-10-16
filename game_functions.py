@@ -61,8 +61,8 @@ def number_of_alien(game_settings, alien):
     return alien_number, alien_width
 
 def create_alien_group(game_settings, screen, alien, alien_group):
-    number_alien, alien_width = number_of_alien(game_settings, alien)
-    for alien_num in range(number_alien):
+    alien_number, alien_width = number_of_alien(game_settings, alien)
+    for alien_num in range(alien_number):
         alien = Alien(screen)
         alien.rect.x = alien_width + 2 * alien_width * alien_num
         alien_group.add(alien)

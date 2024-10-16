@@ -7,7 +7,7 @@ from alien import Alien
 
 pygame.init() 
 # Game_settings Object that contains every attributes and method 
-game_settings = Settings ()
+game_settings = Settings()
 
 screen = pygame.display.set_mode((game_settings.WINDOW_WIDTH, game_settings.WINDOW_HEIGHT))
 pygame.display.set_caption("Space Invader!")
@@ -20,8 +20,6 @@ alien = Alien(screen)
 
 
 game_functions.create_alien_group(game_settings, screen, alien, alien_group)
-
-
 
 def Game_runner():
     game_running = True
