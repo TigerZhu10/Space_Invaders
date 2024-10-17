@@ -11,7 +11,6 @@ class Alien(Sprite):
         self.rect.x = 0
         self.rect.y = self.rect.height
 
-
     def display_alien(self):
         self.screen.blit(self.image, self.rect)
     

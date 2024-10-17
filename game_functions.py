@@ -51,21 +51,21 @@ def update_screen(display_screen, ship, game_settings, bullet_group, alien_group
 
 
 
-
-
-
-
-def number_of_alien(game_settings, alien):
-    alien_width = alien.rect.width
+def number_of_alien(game_settings, alien_width):
     alien_number = (game_settings.WINDOW_WIDTH - 2 * alien_width) // (2 * alien_width)
-    return alien_number, alien_width
+    return alien_number
 
-def create_alien_group(game_settings, screen, alien, alien_group):
-    alien_number, alien_width = number_of_alien(game_settings, alien)
+def create_alien(screen, alien_group, alien_width, alien_num):
+    alien = Alien(screen)
+    alien.rect.x = alien_width + 2 * alien_width * alien_num
+    alien_group.add(alien)
+    
+def create_alien_group(game_settings, screen, alien_group):
+    alien = Alien(screen)
+    alien_width = alien.rect.width
+    alien_number = number_of_alien(game_settings, alien_width)
     for alien_num in range(alien_number):
-        alien = Alien(screen)
-        alien.rect.x = alien_width + 2 * alien_width * alien_num
-        alien_group.add(alien)
+        create_alien(screen, alien_group, alien_width, alien_num)
    
      
 

@@ -3,7 +3,6 @@ from settings import Settings
 import game_functions        
 from ship import Ship
 from pygame.sprite import Group
-from alien import Alien
 
 pygame.init() 
 # Game_settings Object that contains every attributes and method 
@@ -16,10 +15,8 @@ bullet_group = Group()
 alien_group = Group()
 
 player_ship = Ship(screen, game_settings)
-alien = Alien(screen)
 
-
-game_functions.create_alien_group(game_settings, screen, alien, alien_group)
+game_functions.create_alien_group(game_settings, screen, alien_group)
 
 def Game_runner():
     game_running = True
