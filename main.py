@@ -16,8 +16,7 @@ alien_group = Group()
 
 player_ship = Ship(screen, game_settings)
 
-game_functions.create_alien_group(game_settings, screen, alien_group)
-game_functions.get_numbers_rows(game_settings, player_ship, alien_height)
+game_functions.create_alien_group(game_settings, screen, alien_group, player_ship)
 
 def Game_runner():
     game_running = True
