@@ -50,31 +50,36 @@ def update_screen(display_screen, ship, game_settings, bullet_group, alien_group
 
 
 
-
-def get_number_aliens_in_a_row(game_settings, alien_width):
+#get aliens in one row(获取一行能放下多少外星人)
+def get_aliens_in_a_row(game_settings, alien_width):
     alien_number = (game_settings.WINDOW_WIDTH - 2 * alien_width) // (2 * alien_width)
     return alien_number
 
+#get alien numbers in more rows(获取多行能放下多少外星人)
+def get_aliens_in_more_rows(game_settings, ship, alien_height):
+    alien_rows = (game_settings.WINDOW_HEIGHT - (alien_height * 3 + ship.rect.height)) // (2 * alien_height)
+    return alien_rows
+
+#create alien to alien group every single time when column number 76 and 77 calls him(创建一个外星人当第76和第77行呼叫他的时候)
 def create_alien(screen, alien_group, alien_width, alien_num):
     alien = Alien(screen)
     alien.rect.x = alien_width + 2 * alien_width * alien_num
     alien_group.add(alien)
 
+#
 def create_alien_group(game_settings, screen, alien_group, ship):
     alien = Alien(screen)
     alien_width = alien.rect.width
     alien_height = alien.rect.height
-    alien_number = get_number_aliens_in_a_row(game_settings, alien_width)
-    get_numbers_aliens_in_more_rows(game_settings, ship, alien_height)
+    alien_number = get_aliens_in_a_row(game_settings, alien_width)
+    alien_rows = get_aliens_in_more_rows(game_settings, ship, alien_height)
     for alien_num in range(alien_number):
         create_alien(screen, alien_group, alien_width, alien_num)
 
+
+
 #def create_alien_rows():
      
-
-def get_numbers_aliens_in_more_rows(game_settings, ship, alien_height):
-    alien_rows = (game_settings.WINDOW_HEIGHT - (alien_height * 3 + ship.rect.height)) // (2 * alien_height)
-    return alien_rows
      
    
      
