@@ -66,19 +66,17 @@ def create_alien(screen, alien_group, alien_width, alien_num):
     alien.rect.x = alien_width + 2 * alien_width * alien_num
     alien_group.add(alien)
 
-#
+
 def create_alien_group(game_settings, screen, alien_group, ship):
     alien = Alien(screen)
     alien_width = alien.rect.width
     alien_height = alien.rect.height
     alien_number = get_aliens_in_a_row(game_settings, alien_width)
     alien_rows = get_aliens_in_more_rows(game_settings, ship, alien_height)
-    for alien_num in range(alien_number):
-        create_alien(screen, alien_group, alien_width, alien_num)
+    for alien_r in range(alien_rows):
+        for alien_num in range(alien_number):
+            create_alien(screen, alien_group, alien_width, alien_num)
 
-
-
-#def create_alien_rows():
      
      
    
