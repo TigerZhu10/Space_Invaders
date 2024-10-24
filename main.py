@@ -4,7 +4,7 @@ import game_functions
 from ship import Ship
 from pygame.sprite import Group
 
-pygame.init() 
+pygame.init()   
 # Game_settings Object that contains every attributes and method 
 game_settings = Settings()
 

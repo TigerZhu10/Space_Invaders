@@ -50,20 +50,29 @@ def update_screen(display_screen, ship, game_settings, bullet_group, alien_group
 
 
 
-#get aliens in one row(获取一行能放下多少外星人)
+# get aliens in one row(获取一行能放下多少外星人)
 def get_aliens_in_a_row(game_settings, alien_width):
-    alien_number = (game_settings.WINDOW_WIDTH - 2 * alien_width) // (2 * alien_width)
+    # calculate the available space for x coordinate, which you subtract two alien from each end.
+    available_space_x = game_settings.WINDOW_WIDTH - 2 * alien_width
+    # calculate the number of aliens, which one alien should be remove between two aliens. 
+    alien_number = available_space_x // (2 * alien_width)
     return alien_number
 
 #get alien numbers in more rows(获取多行能放下多少外星人)
 def get_aliens_in_more_rows(game_settings, ship, alien_height):
-    alien_rows = (game_settings.WINDOW_HEIGHT - (alien_height * 3 + ship.rect.height)) // (2 * alien_height)
+    # calculate the available space for y coordinate
+    available_space_y = game_settings.WINDOW_HEIGHT - (alien_height * 3 + ship.rect.height)
+    # calculate the available rows in the screen, which is the same way as before.  
+    alien_rows = available_space_y // (2 * alien_height)
     return alien_rows
 
 #create alien to alien group every single time when column number 76 and 77 calls him(创建一个外星人当第76和第77行呼叫他的时候)
-def create_alien(screen, alien_group, alien_width, alien_num):
+def create_alien(screen, alien_group, alien_width, alien_num, alien_height, alien_r):
     alien = Alien(screen)
     alien.rect.x = alien_width + 2 * alien_width * alien_num
+    # depend on alien_r to make sure alien's y coordinate. 
+    # which we use a special method. 
+    alien.rect.y = alien_height + alien_r * (2 * alien_height)
     alien_group.add(alien)
 
 
@@ -75,14 +84,12 @@ def create_alien_group(game_settings, screen, alien_group, ship):
     alien_rows = get_aliens_in_more_rows(game_settings, ship, alien_height)
     for alien_r in range(alien_rows):
         for alien_num in range(alien_number):
-            create_alien(screen, alien_group, alien_width, alien_num)
+            create_alien(screen, alien_group, alien_width, alien_num, alien_height, alien_r)
 
      
      
    
      
-
-
 
 def bullet_group_display(bullet_group):
     for bullet in bullet_group.sprites():
