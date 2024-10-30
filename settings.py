@@ -11,7 +11,7 @@ class Settings:
         self.bg_color = (0,0,0)
 
         #Ship's speed
-        self.ship_velocity = 0.4
+        self.ship_velocity = 0.25
 
         #bullet color(子弹颜色)
         self.bullet_color = (0,255,0)
@@ -22,3 +22,5 @@ class Settings:
         self.bullet_height = 15
         self.bullet_spot = 0, 0, self.bullet_width, self.bullet_height
         self.bullet_num_allowed = 10
+
+        self.alien_velocity = 0.5

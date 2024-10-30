@@ -43,7 +43,11 @@ def update_screen(display_screen, ship, game_settings, bullet_group, alien_group
 
         alien_group.draw(display_screen)
 
+
+
         bullet_group_display(bullet_group)
+
+        alien_group.update()
         
         # Update every thing on the screen
         pygame.display.flip()
@@ -67,8 +71,8 @@ def get_aliens_in_more_rows(game_settings, ship, alien_height):
     return alien_rows
 
 #create alien to alien group every single time when column number 76 and 77 calls him(创建一个外星人当第76和第77行呼叫他的时候)
-def create_alien(screen, alien_group, alien_width, alien_num, alien_height, alien_r):
-    alien = Alien(screen)
+def create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r):
+    alien = Alien(screen, alien_group, game_settings)
     # calculate the space between the alien which is 2 * alien_width * alien_num(第几个)
     alien.rect.x = alien_width + 2 * alien_width * alien_num
     # calculate the space between aliens in y coordinate using the same method as x.
@@ -77,15 +81,16 @@ def create_alien(screen, alien_group, alien_width, alien_num, alien_height, alie
 
 
 def create_alien_group(game_settings, screen, alien_group, ship):
-    alien = Alien(screen)
-    # alien_width and alien_width 是固定值
+    # get alien's width and height 
+    alien = Alien(screen, alien_group, game_settings)
+    # alien_width and alien_height 是固定值
     alien_width = alien.rect.width
     alien_height = alien.rect.height
     alien_number = get_aliens_in_a_row(game_settings, alien_width)
     alien_rows = get_aliens_in_more_rows(game_settings, ship, alien_height)
     for alien_r in range(alien_rows):
         for alien_num in range(alien_number):
-            create_alien(screen, alien_group, alien_width, alien_num, alien_height, alien_r)
+            create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r)
 
      
      
@@ -96,11 +101,13 @@ def bullet_group_display(bullet_group):
     for bullet in bullet_group.sprites():
             bullet.draw_bullet()
             bullet.display_bullet()
-        
+
+    # bullet remove after it got out of the screen   
     for bullet in bullet_group.copy():
         if bullet.rect.bottom <= 0:
             bullet_group.remove(bullet)
 
 def lunch_bullet(bullet_group, game_settings, screen, ship):
+        # give the user a limit for lunching bullets
         if len(bullet_group) < game_settings.bullet_num_allowed:
             bullet_group.add(Bullet(screen, ship, game_settings))
