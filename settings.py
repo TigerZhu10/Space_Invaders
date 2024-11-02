@@ -11,7 +11,7 @@ class Settings:
         self.bg_color = (0,0,0)
 
         #Ship's speed
-        self.ship_velocity = 0.25
+        self.ship_velocity = 0.6
 
         #bullet color(子弹颜色)
         self.bullet_color = (0,255,0)
@@ -23,8 +23,8 @@ class Settings:
         self.bullet_spot = 0, 0, self.bullet_width, self.bullet_height
         self.bullet_num_allowed = 10
 
-        self.alien_v = 1  # Alien horizontal speed
-        self.alien_direction = 1  # Direction of alien movement, 1 for right, -1 for left
-        self.alien_drop_speed = 10
+        self.alien_velocity = 0.35
+        self.alien_direction = 1  
+        self.alien_drop_speed = 4
 
         

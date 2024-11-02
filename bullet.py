@@ -12,12 +12,14 @@ class Bullet(Sprite):
         self.rect.centerx = self.ship.rect.centerx
         self.rect.top = self.ship.rect.top
 
-        self.bullet_position = float(self.rect.y)
+        # Turn (rect.y) to a decimal and give it to (bullet_position_x) 
+        self.bullet_position_x = float(self.rect.y)
         self.bullet_move = False
 
     def display_bullet(self):
-        self.bullet_position -= self.game_settings.bullet_velocity
-        self.rect.y = self.bullet_position
+        self.bullet_position_x -= self.game_settings.bullet_velocity
+        # return the number back to (rect.y)
+        self.rect.y = self.bullet_position_x
 
 
     def draw_bullet(self):

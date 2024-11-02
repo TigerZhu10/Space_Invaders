@@ -43,8 +43,6 @@ def update_screen(display_screen, ship, game_settings, bullet_group, alien_group
 
         alien_group.draw(display_screen)
 
-
-
         bullet_group_display(bullet_group)
 
         alien_group.update()
@@ -72,17 +70,19 @@ def get_aliens_in_more_rows(game_settings, ship, alien_height):
 
 #create alien to alien group every single time when column number 76 and 77 calls him(创建一个外星人当第76和第77行呼叫他的时候)
 def create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r):
-    alien = Alien(screen, alien_group, game_settings)
     # calculate the space between the alien which is 2 * alien_width * alien_num(第几个)
-    alien.rect.x = alien_width + 2 * alien_width * alien_num
+    alien_position_x = alien_width + 2 * alien_width * alien_num
     # calculate the space between aliens in y coordinate using the same method as x.
-    alien.rect.y = alien_height + alien_r * (2 * alien_height)
+    alien_position_y = alien_height + alien_r * (2 * alien_height)
+    
+    alien = Alien(screen, alien_group, game_settings, alien_position_x, alien_position_y)
+   
     alien_group.add(alien)
 
 
 def create_alien_group(game_settings, screen, alien_group, ship):
     # get alien's width and height 
-    alien = Alien(screen, alien_group, game_settings)
+    alien = Alien(screen, alien_group, game_settings, alien_position_x = 0, alien_position_y = 0)
     # alien_width and alien_height 是固定值
     alien_width = alien.rect.width
     alien_height = alien.rect.height
