@@ -23,4 +23,8 @@ class Settings:
         self.bullet_spot = 0, 0, self.bullet_width, self.bullet_height
         self.bullet_num_allowed = 10
 
-        self.alien_velocity = 0.5
+        self.alien_v = 1  # Alien horizontal speed
+        self.alien_direction = 1  # Direction of alien movement, 1 for right, -1 for left
+        self.alien_drop_speed = 10
+
+        

@@ -15,18 +15,19 @@ class Alien(Sprite):
         self.rect.y = self.rect.height
 
 
-        self.alien_velocity = 1
+        self.alien_velocity = float(game_settings.alien_v)
 
     def update(self):
         self.alien_move()
 
     def alien_move(self):
 
-        if self.rect.right < self.game_settings.WINDOW_WIDTH:
-            self.rect.x += self.game_settings.alien_velocity
-        
-        if self.rect.right == self.game_settings.WINDOW_WIDTH:
-            self.rect.bottom += 1
+        self.rect.x += self.alien_velocity * self.game_settings.alien_direction
+    
+        if self.rect.right >= self.game_settings.WINDOW_WIDTH or self.rect.left <= 0:
+            self.game_settings.alien_direction *= -1
+            # for alien in self.alien_group.sprites():
+            #     alien.rect.y += self.game_settings.alien_drop_speed
 
        
 
