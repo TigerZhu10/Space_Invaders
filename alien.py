@@ -25,6 +25,10 @@ class Alien(Sprite):
         self.alien_position += self.game_settings.alien_velocity * self.game_settings.alien_direction
         self.rect.x = self.alien_position
 
+        self.check_edge()
+
+    def check_edge(self):
+
         if self.rect.right >= self.game_settings.WINDOW_WIDTH or self.rect.left <= 0:
             self.game_settings.alien_direction *= -1
             for alien in self.alien_group.sprites():
