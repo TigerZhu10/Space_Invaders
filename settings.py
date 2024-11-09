@@ -25,6 +25,6 @@ class Settings:
 
         self.alien_velocity = 2
         self.alien_direction = 1  
-        self.alien_drop_speed = 4
+        self.alien_drop_speed = 100
 
         

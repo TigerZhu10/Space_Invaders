@@ -12,7 +12,7 @@ FPS = 60
 clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((game_settings.WINDOW_WIDTH, game_settings.WINDOW_HEIGHT))
-pygame.display.set_caption("Spa   ce Invader!")
+pygame.display.set_caption("Spce Invader!")
 
 bullet_group = Group()
 alien_group = Group()
@@ -28,6 +28,4 @@ def Game_runner():
         clock.tick(FPS)
         game_functions.check_mouse_key_events(player_ship, screen, bullet_group, game_settings)
         game_functions.update_screen(screen, player_ship, game_settings, bullet_group, alien_group)
-
-
 Game_runner()

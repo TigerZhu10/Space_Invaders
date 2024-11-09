@@ -1,6 +1,7 @@
 import pygame, sys
 from bullet import Bullet
 from alien import Alien
+from time import sleep
 
 
 def Key_up(ship, event):
@@ -12,7 +13,6 @@ def Key_up(ship, event):
         ship.moving_left = False
     
 def Key_down(ship, event, bullet_group, screen, game_settings):
-
 
     # When the button is pressed, change the flag to True to continuously move the spacecraft
     if event.key == pygame.K_RIGHT:
@@ -35,24 +35,37 @@ def check_mouse_key_events(ship, screen, bullet_group, game_settings):
             Key_up(ship, ev)  
               
 
-def update_screen(display_screen, ship, game_settings, bullet_group, alien_group):
-        display_screen.fill(game_settings.bg_color)
+def update_screen(screen, ship, game_settings, bullet_group, alien_group):
+    screen.fill(game_settings.bg_color)
 
-        ship.moving_ship()
-        ship.display_ship()
+    ship.moving_ship()
+    ship.display_ship()
 
-        alien_group.draw(display_screen)
+    alien_group.draw(screen)
 
-        bullet_group_display(bullet_group)
+    update_bullet(bullet_group, alien_group)
 
-        if len(alien_group) == 0:  
-            create_alien_group(game_settings, display_screen, alien_group, ship, bullet_group)
+    check_collisions(ship, alien_group, game_settings, screen, bullet_group)
 
-        alien_group.update()
+    #If there is no more Alien than create again.
+    if len(alien_group) == 0:  
+        bullet_group.empty()
+        create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
 
-        # Update every thing on the screen
-        pygame.display.flip()
+    alien_group.update()
 
+    # Update every thing on the screen
+    pygame.display.flip()
+
+
+
+
+def check_collisions(ship, alien_group, game_settings, screen, bullet_group):
+    if pygame.sprite.spritecollideany(ship, alien_group):
+        alien_group.empty()
+        if len(alien_group) == 0:
+            create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
+            alien
 
 
 # get aliens in one row(获取一行能放下多少外星人)
@@ -72,21 +85,20 @@ def get_aliens_in_more_rows(game_settings, ship, alien_height):
     return alien_rows
 
 #create alien to alien group every single time when column number 76 and 77 calls him(创建一个外星人当第76和第77行呼叫他的时候)
-def create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r, bullet_group):
+def create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r, bullet_group, ship):
     # calculate the space between the alien which is 2 * alien_width * alien_num(第几个)
     alien_position_x = alien_width + 2 * alien_width * alien_num
     # calculate the space between aliens in y coordinate using the same method as x.
     alien_position_y = alien_height + alien_r * (2 * alien_height)
     
-    alien = Alien(screen, alien_group, game_settings, alien_position_x, alien_position_y, bullet_group)
+    alien = Alien(screen, alien_group, game_settings, alien_position_x, alien_position_y, bullet_group, ship)
    
     alien_group.add(alien)
     
 
-
 def create_alien_group(game_settings, screen, alien_group, ship, bullet_group):
     # get alien's width and height 
-    alien = Alien(screen, alien_group, game_settings, alien_position_x = 0, alien_position_y = 0, bullet_group = bullet_group)
+    alien = Alien(screen, alien_group, game_settings, alien_position_x = 0, alien_position_y = 0, bullet_group = bullet_group, ship = ship)
     # alien_width and alien_height 是固定值
     alien_width = alien.rect.width
     alien_height = alien.rect.height
@@ -94,27 +106,24 @@ def create_alien_group(game_settings, screen, alien_group, ship, bullet_group):
     alien_rows = get_aliens_in_more_rows(game_settings, ship, alien_height)
     for alien_r in range(alien_rows):
         for alien_num in range(alien_number):
-            create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r, bullet_group)
+            create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r, bullet_group, ship)
+
         
+def lunch_bullet(bullet_group, game_settings, screen, ship):
+    # give the user a limit for lunching bullets
+    if len(bullet_group) < game_settings.bullet_num_allowed:
+        bullet_group.add(Bullet(screen, ship, game_settings))
 
-
-     
-     
-   
-     
-
-def bullet_group_display(bullet_group):
+def update_bullet(bullet_group, alien_group):
     for bullet in bullet_group.sprites():
-            bullet.draw_bullet()
-            bullet.display_bullet()
-
+        bullet.draw_bullet()
+        bullet.display_bullet()
+        pygame.sprite.groupcollide(bullet_group, alien_group, True, True)
+        
     # bullet remove after it got out of the screen   
     for bullet in bullet_group.copy():
         if bullet.rect.bottom <= 0:
             bullet_group.remove(bullet)
 
-def lunch_bullet(bullet_group, game_settings, screen, ship):
-        # give the user a limit for lunching bullets
-        if len(bullet_group) < game_settings.bullet_num_allowed:
-            bullet_group.add(Bullet(screen, ship, game_settings))
+
         
