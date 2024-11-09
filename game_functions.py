@@ -45,8 +45,11 @@ def update_screen(display_screen, ship, game_settings, bullet_group, alien_group
 
         bullet_group_display(bullet_group)
 
+        if len(alien_group) == 0:  
+            create_alien_group(game_settings, display_screen, alien_group, ship, bullet_group)
+
         alien_group.update()
-        
+
         # Update every thing on the screen
         pygame.display.flip()
 
@@ -69,20 +72,21 @@ def get_aliens_in_more_rows(game_settings, ship, alien_height):
     return alien_rows
 
 #create alien to alien group every single time when column number 76 and 77 calls him(创建一个外星人当第76和第77行呼叫他的时候)
-def create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r):
+def create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r, bullet_group):
     # calculate the space between the alien which is 2 * alien_width * alien_num(第几个)
     alien_position_x = alien_width + 2 * alien_width * alien_num
     # calculate the space between aliens in y coordinate using the same method as x.
     alien_position_y = alien_height + alien_r * (2 * alien_height)
     
-    alien = Alien(screen, alien_group, game_settings, alien_position_x, alien_position_y)
+    alien = Alien(screen, alien_group, game_settings, alien_position_x, alien_position_y, bullet_group)
    
     alien_group.add(alien)
+    
 
 
-def create_alien_group(game_settings, screen, alien_group, ship):
+def create_alien_group(game_settings, screen, alien_group, ship, bullet_group):
     # get alien's width and height 
-    alien = Alien(screen, alien_group, game_settings, alien_position_x = 0, alien_position_y = 0)
+    alien = Alien(screen, alien_group, game_settings, alien_position_x = 0, alien_position_y = 0, bullet_group = bullet_group)
     # alien_width and alien_height 是固定值
     alien_width = alien.rect.width
     alien_height = alien.rect.height
@@ -90,7 +94,9 @@ def create_alien_group(game_settings, screen, alien_group, ship):
     alien_rows = get_aliens_in_more_rows(game_settings, ship, alien_height)
     for alien_r in range(alien_rows):
         for alien_num in range(alien_number):
-            create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r)
+            create_alien(screen, game_settings, alien_group, alien_width, alien_num, alien_height, alien_r, bullet_group)
+        
+
 
      
      
@@ -111,3 +117,4 @@ def lunch_bullet(bullet_group, game_settings, screen, ship):
         # give the user a limit for lunching bullets
         if len(bullet_group) < game_settings.bullet_num_allowed:
             bullet_group.add(Bullet(screen, ship, game_settings))
+        
