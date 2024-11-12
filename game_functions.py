@@ -63,9 +63,10 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group):
 def check_collisions(ship, alien_group, game_settings, screen, bullet_group):
     if pygame.sprite.spritecollideany(ship, alien_group):
         alien_group.empty()
+        ship.rect.centerx = game_settings.WINDOW_WIDTH//2
+        ship.rect.bottom = game_settings.WINDOW_HEIGHT
         if len(alien_group) == 0:
             create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
-            alien
 
 
 # get aliens in one row(获取一行能放下多少外星人)
