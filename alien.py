@@ -1,5 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
+import game_functions 
 
 class Alien(Sprite):
     def __init__(self, screen, alien_group, game_settings, alien_position_x, alien_position_y, bullet_group, ship):
@@ -8,6 +9,7 @@ class Alien(Sprite):
         self.game_settings = game_settings
         self.bullet_group = bullet_group
         self.ship = ship
+        self.alien_group = alien_group
 
         self.screen = screen
         self.image = pygame.image.load("./assets/images/alien.png")
@@ -21,12 +23,24 @@ class Alien(Sprite):
 
     def update(self):
         self.alien_move()
+        # if self.rect.bottom >= 1200:
+        #     print("ligma")
+        #     self.alien_group.empty()
+        #     game_functions.game_over(self.ship, self.game_settings, self.screen, self.alien_group, self.bullet_group)
 
     def alien_move(self):
 
         self.alien_position += self.game_settings.alien_velocity * self.game_settings.alien_direction
         self.rect.x = self.alien_position
 
+        
+        for alien in self.alien_group.sprites():
+            if alien.rect.bottom >= self.game_settings.WINDOW_HEIGHT:
+                print("ligma")
+                self.alien_group.empty()
+                game_functions.game_over(self.ship, self.game_settings, self.screen, self.alien_group, self.bullet_group)
+
+        
         self.check_edge()
 
     def check_edge(self):
