@@ -23,10 +23,6 @@ class Alien(Sprite):
 
     def update(self):
         self.alien_move()
-        # if self.rect.bottom >= 1200:
-        #     print("ligma")
-        #     self.alien_group.empty()
-        #     game_functions.game_over(self.ship, self.game_settings, self.screen, self.alien_group, self.bullet_group)
 
     def alien_move(self):
 
