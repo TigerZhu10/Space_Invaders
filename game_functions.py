@@ -32,8 +32,7 @@ def check_mouse_key_events(ship, screen, bullet_group, game_settings):
         elif ev.type == pygame.KEYDOWN:
             Key_down(ship, ev, bullet_group, screen, game_settings)
         elif ev.type == pygame.KEYUP:
-            Key_up(ship, ev)  
-              
+            Key_up(ship, ev)     
 
 def update_screen(screen, ship, game_settings, bullet_group, alien_group):
     screen.fill(game_settings.bg_color)
