@@ -12,7 +12,7 @@ FPS = 60
 clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((game_settings.WINDOW_WIDTH, game_settings.WINDOW_HEIGHT))
-pygame.display.set_caption("Spce Invader!")
+pygame.display.set_caption("Space Invader!")
 
 bullet_group = Group()
 alien_group = Group()

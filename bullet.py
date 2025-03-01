@@ -8,18 +8,18 @@ class Bullet(Sprite):
         self.screen = display_screen
         self.ship = player_ship
     
-        self.rect = pygame.Rect(self.game_settings.bullet_spot)
+        self.rect = pygame.Rect(self.game_settings.bullet_attributes)
         self.rect.centerx = self.ship.rect.centerx
         self.rect.top = self.ship.rect.top
 
-        # Turn (rect.y) to a decimal and give it to (bullet_position_x) 
-        self.bullet_position_x = float(self.rect.y)
+        # Turn (rect.y) to a decimal and give it to (bullet_position_y) 
+        self.bullet_position_y = float(self.rect.y)
         self.bullet_move = False
 
     def display_bullet(self):
-        self.bullet_position_x -= self.game_settings.bullet_velocity
+        self.bullet_position_y -= self.game_settings.bullet_velocity
         # return the number back to (rect.y)
-        self.rect.y = self.bullet_position_x
+        self.rect.y = self.bullet_position_y
 
 
     def draw_bullet(self):

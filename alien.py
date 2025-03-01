@@ -32,9 +32,8 @@ class Alien(Sprite):
         
         for alien in self.alien_group.sprites():
             if alien.rect.bottom >= self.game_settings.WINDOW_HEIGHT:
-                print("ligma")
                 self.alien_group.empty()
-                game_functions.game_over(self.ship, self.game_settings, self.screen, self.alien_group, self.bullet_group)
+                game_functions.game_reset(self.ship, self.game_settings, self.screen, self.alien_group, self.bullet_group)
 
         
         self.check_edge()

@@ -63,9 +63,10 @@ def check_collisions(ship, alien_group, game_settings, screen, bullet_group):
     if pygame.sprite.spritecollideany(ship, alien_group):
         alien_group.empty()
         if len(alien_group) == 0:
-            game_over(ship, game_settings, screen, alien_group, bullet_group)
+            game_reset(ship, game_settings, screen, alien_group, bullet_group)
             
-def game_over(ship, game_settings, screen, alien_group, bullet_group):
+def game_reset(ship, game_settings, screen, alien_group, bullet_group):
+    bullet_group.empty()
     ship.position = game_settings.WINDOW_WIDTH//2
     create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
 
@@ -93,7 +94,7 @@ def create_alien(screen, game_settings, alien_group, alien_width, alien_num, ali
     alien_position_y = alien_height + alien_r * (2 * alien_height)
     
     alien = Alien(screen, alien_group, game_settings, alien_position_x, alien_position_y, bullet_group, ship)
-   
+
     alien_group.add(alien)
     
 
@@ -125,6 +126,3 @@ def update_bullet(bullet_group, alien_group):
     for bullet in bullet_group.copy():
         if bullet.rect.bottom <= 0:
             bullet_group.remove(bullet)
-
-
-        

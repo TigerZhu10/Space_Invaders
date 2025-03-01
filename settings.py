@@ -20,11 +20,11 @@ class Settings:
         self.bullet_velocity = 8
         self.bullet_width = 3
         self.bullet_height = 15
-        self.bullet_spot = 0, 0, self.bullet_width, self.bullet_height
+        self.bullet_attributes = 0, 0, self.bullet_width, self.bullet_height
         self.bullet_num_allowed = 100
 
         self.alien_velocity = 2
         self.alien_direction = 1  
-        self.alien_drop_speed = 20
+        self.alien_drop_speed = 60
 
         
