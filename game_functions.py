@@ -31,27 +31,31 @@ def check_mouse_key_events(ship, screen, bullet_group, game_settings):
 
         elif ev.type == pygame.KEYDOWN:
             Key_down(ship, ev, bullet_group, screen, game_settings)
-        elif ev.type == pygame.KEYUP:
+        elif ev.type == pygame.KEYUP: 
             Key_up(ship, ev)     
 
-def update_screen(screen, ship, game_settings, bullet_group, alien_group):
-    screen.fill(game_settings.bg_color)
+def update_screen(screen, ship, game_settings, bullet_group, alien_group, button):
+    for ev in pygame.event.get():
+        if ev.type == pygame.MOUSEBUTTONDOWN:
+            screen.fill(game_settings.bg_color)
 
-    ship.moving_ship()
-    ship.display_ship()
+            ship.moving_ship()
+            ship.display_ship()
 
-    alien_group.draw(screen)
+            alien_group.draw(screen)
 
-    update_bullet(bullet_group, alien_group)
+            update_bullet(bullet_group, alien_group)
 
-    check_collisions(ship, alien_group, game_settings, screen, bullet_group)
+            check_collisions(ship, alien_group, game_settings, screen, bullet_group)
 
-    #If there is no more Alien than create again.
-    if len(alien_group) == 0:  
-        bullet_group.empty()
-        create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
+            #If there is no more Alien than create again.
+            if len(alien_group) == 0:  
+                bullet_group.empty()
+                create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
 
-    alien_group.update()
+            alien_group.update()
+
+    button.draw_buttons()
 
     # Update every thing on the screen
     pygame.display.flip()

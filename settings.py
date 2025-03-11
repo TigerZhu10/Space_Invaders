@@ -16,7 +16,7 @@ class Settings:
         #bullet color(子弹颜色)
         self.bullet_color = (0,255,0)
 
-        # setup bullet(设置子弹)
+        # setup bullets(设置子弹)
         self.bullet_velocity = 8
         self.bullet_width = 3
         self.bullet_height = 15
@@ -27,4 +27,6 @@ class Settings:
         self.alien_direction = 1  
         self.alien_drop_speed = 60
 
-        
+        # setup button
+        self.button_attributes = 0, 0, 250, 50
+        self.button_color = (123,123,123)
