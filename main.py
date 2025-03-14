@@ -19,7 +19,6 @@ bullet_group = Group()
 alien_group = Group()
 
 button = Button(screen, game_settings) 
-
 player_ship = Ship(screen, game_settings)
 
 
