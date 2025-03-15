@@ -29,6 +29,6 @@ def Game_runner():
     game_running = True
     while game_running:
         clock.tick(FPS)
-        game_functions.check_mouse_key_events(player_ship, screen, bullet_group, game_settings)
+        game_functions.check_mouse_key_events(player_ship, screen, bullet_group, game_settings, button)
         game_functions.update_screen(screen, player_ship, game_settings, bullet_group, alien_group, button)
 Game_runner()
