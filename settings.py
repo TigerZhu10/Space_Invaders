@@ -7,6 +7,9 @@ class Settings:
         self.WINDOW_WIDTH = 1200
         self.WINDOW_HEIGHT = 800
 
+        # check if the game is active or not 
+        self.game_active = False
+
         #Backgroud color
         self.bg_color = (0,0,0)
 
@@ -30,3 +33,5 @@ class Settings:
         # setup button
         self.button_attributes = 0, 0, 250, 50
         self.button_color = (123,123,123)
+
+        self.reset_number = 3

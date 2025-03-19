@@ -3,8 +3,8 @@ from bullet import Bullet
 from alien import Alien
 from time import sleep
 
-# check if the game is active or not
-game_active = False  
+
+reset_numbers = 3
 
 def Key_up(ship, event):
     if event.key == pygame.K_RIGHT:
@@ -22,27 +22,25 @@ def Key_down(ship, event, bullet_group, screen, game_settings):
         lunch_bullet(bullet_group, game_settings, screen, ship)
 
 def check_mouse_key_events(ship, screen, bullet_group, game_settings, button):
-    global game_active
     for ev in pygame.event.get():
         if ev.type == pygame.QUIT:
             sys.exit()
 
-        elif ev.type == pygame.KEYDOWN and game_active:
+        elif ev.type == pygame.KEYDOWN and game_settings.game_active:
             Key_down(ship, ev, bullet_group, screen, game_settings)
-        elif ev.type == pygame.KEYUP and game_active: 
+        elif ev.type == pygame.KEYUP and game_settings.game_active: 
             Key_up(ship, ev)    
         # if click the button down, get a position of the mouse cursor where 
         # mouse_x is the x coordinate of the mouse... And then check if the mouse is click on the area of the button
         elif ev.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             if button.rect.collidepoint(mouse_x, mouse_y):
-                game_active = True
+                game_settings.game_active = True
 
 def update_screen(screen, ship, game_settings, bullet_group, alien_group, button):
-    global game_active
     screen.fill(game_settings.bg_color)
     
-    if game_active:
+    if game_settings.game_active:
         ship.moving_ship()
         ship.display_ship()
 
@@ -52,24 +50,33 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
         update_bullet(bullet_group, alien_group)
         check_collisions(ship, alien_group, game_settings, screen, bullet_group)
 
+        # When you kill all the aliens then recreate alien group
         if len(alien_group) == 0:  
             bullet_group.empty()
             create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
     else:
         button.draw_buttons()
+        button.display_text()
     
     pygame.display.flip()
 
 def check_collisions(ship, alien_group, game_settings, screen, bullet_group):
+    # When the ship hit the alien you lose a life and reset the game
     if pygame.sprite.spritecollideany(ship, alien_group):
         alien_group.empty()
+        game_settings.reset_number -= 1
+        
         if len(alien_group) == 0:
             game_reset(ship, game_settings, screen, alien_group, bullet_group)
-            
+
 def game_reset(ship, game_settings, screen, alien_group, bullet_group):
     bullet_group.empty()
     ship.position = game_settings.WINDOW_WIDTH // 2
     create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
+    # if you die 3 times than you reset the game and display the button again
+    if game_settings.reset_number <= 0:
+        game_settings.game_active = False
+        game_settings.reset_number = 3
 
 def get_aliens_in_a_row(game_settings, alien_width):
     available_space_x = game_settings.WINDOW_WIDTH - 2 * alien_width

@@ -18,7 +18,7 @@ pygame.display.set_caption("Space Invader!")
 bullet_group = Group()
 alien_group = Group()
 
-button = Button(screen, game_settings) 
+button = Button(screen, game_settings, "play") 
 player_ship = Ship(screen, game_settings)
 
 
