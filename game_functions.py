@@ -48,7 +48,7 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
         alien_group.update()
         
         update_bullet(bullet_group, alien_group)
-        check_collisions(ship, alien_group, game_settings, screen, bullet_group)
+        check_collisions(ship, alien_group, game_settings, screen, bullet_group, lives)
 
         # When you kill all the aliens then recreate alien group
         if len(alien_group) == 0:  
@@ -64,12 +64,13 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
     
     pygame.display.flip()
 
-def check_collisions(ship, alien_group, game_settings, screen, bullet_group):
+def check_collisions(ship, alien_group, game_settings, screen, bullet_group, lives):
     # When the ship hit the alien you lose a life and reset the game
     if pygame.sprite.spritecollideany(ship, alien_group):
         alien_group.empty()
         game_settings.reset_number -= 1
-        
+        game_settings.lives -= 1
+        lives.display_lives()
         if len(alien_group) == 0:
             game_reset(ship, game_settings, screen, alien_group, bullet_group)
 
