@@ -6,7 +6,7 @@ class Button():
         self.screen = display_screen
         self.msg = msg
 
-        self.button_font= pygame.font.SysFont('calibri', 30)
+        self.button_font = pygame.font.SysFont('calibri', 30)
 
         # give screen a rect plot the coordinates in center and than give it to self.rect
         self.screen_rect = display_screen.get_rect()

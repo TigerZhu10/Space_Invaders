@@ -29,7 +29,7 @@ def check_mouse_key_events(ship, screen, bullet_group, game_settings, button):
         elif ev.type == pygame.KEYDOWN and game_settings.game_active:
             Key_down(ship, ev, bullet_group, screen, game_settings)
         elif ev.type == pygame.KEYUP and game_settings.game_active: 
-            Key_up(ship, ev)    
+            Key_up(ship, ev)
         # if click the button down, get a position of the mouse cursor where 
         # mouse_x is the x coordinate of the mouse... And then check if the mouse is click on the area of the button
         elif ev.type == pygame.MOUSEBUTTONDOWN:
