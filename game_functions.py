@@ -37,7 +37,7 @@ def check_mouse_key_events(ship, screen, bullet_group, game_settings, button):
             if button.rect.collidepoint(mouse_x, mouse_y):
                 game_settings.game_active = True
 
-def update_screen(screen, ship, game_settings, bullet_group, alien_group, button):
+def update_screen(screen, ship, game_settings, bullet_group, alien_group, button, score, lives):
     screen.fill(game_settings.bg_color)
     
     if game_settings.game_active:
@@ -54,6 +54,10 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
         if len(alien_group) == 0:  
             bullet_group.empty()
             create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
+
+        score.display_score()
+        lives.display_lives()
+        
     else:
         button.draw_buttons()
         button.display_text()

@@ -4,6 +4,8 @@ import game_functions
 from ship import Ship
 from button import Button
 from pygame.sprite import Group
+from score import Score
+from lives import Lives
 
 pygame.init()   
 # Game_settings Object that contains every attributes and method 
@@ -18,6 +20,9 @@ pygame.display.set_caption("Space Invader!")
 bullet_group = Group()
 alien_group = Group()
 
+score = Score(screen, game_settings, "Score: " + str(game_settings.score))
+lives = Lives(screen, game_settings, "Lives: " + str(game_settings.lives))
+
 button = Button(screen, game_settings, "play") 
 player_ship = Ship(screen, game_settings)
 
@@ -30,5 +35,5 @@ def Game_runner():
     while game_running:
         clock.tick(FPS)
         game_functions.check_mouse_key_events(player_ship, screen, bullet_group, game_settings, button)
-        game_functions.update_screen(screen, player_ship, game_settings, bullet_group, alien_group, button)
+        game_functions.update_screen(screen, player_ship, game_settings, bullet_group, alien_group, button, score, lives)
 Game_runner()

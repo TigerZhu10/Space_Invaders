@@ -35,3 +35,6 @@ class Settings:
         self.button_color = (123,123,123)
 
         self.reset_number = 3
+
+        self.score = 0
+        self.lives = 3
