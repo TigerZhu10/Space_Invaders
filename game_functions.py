@@ -37,7 +37,7 @@ def check_mouse_key_events(ship, screen, bullet_group, game_settings, button):
             if button.rect.collidepoint(mouse_x, mouse_y):
                 game_settings.game_active = True
 
-def update_screen(screen, ship, game_settings, bullet_group, alien_group, button, score, lives):
+def update_screen(screen, ship, game_settings, bullet_group, alien_group, button, score, lives, round):
     screen.fill(game_settings.bg_color)
     
     if game_settings.game_active:
@@ -49,14 +49,11 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
         
         update_bullet(bullet_group, alien_group)
         check_collisions(ship, alien_group, game_settings, screen, bullet_group, lives)
-
-        # When you kill all the aliens then recreate alien group
-        if len(alien_group) == 0:  
-            bullet_group.empty()
-            create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
+        check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship)
 
         score.display_score()
         lives.display_lives()
+        round.display_round()
         
     else:
         button.draw_buttons()
@@ -64,11 +61,23 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
     
     pygame.display.flip()
 
+def check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship):
+    collisions = pygame.sprite.groupcollide(bullet_group, alien_group, True, True)
+    if collisions:
+        game_settings.score += 50
+        score.display_score()
+    # When you kill all the aliens then recreate alien group
+    if len(alien_group) == 0:  
+        bullet_group.empty()
+        create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
+        speed_increase(game_settings)
+    
+        
 def check_collisions(ship, alien_group, game_settings, screen, bullet_group, lives):
     # When the ship hit the alien you lose a life and reset the game
     if pygame.sprite.spritecollideany(ship, alien_group):
         alien_group.empty()
-        game_settings.reset_number -= 1
+        # game_settings.reset_number -= 1
         game_settings.lives -= 1
         lives.display_lives()
         if len(alien_group) == 0:
@@ -79,9 +88,20 @@ def game_reset(ship, game_settings, screen, alien_group, bullet_group):
     ship.position = game_settings.WINDOW_WIDTH // 2
     create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
     # if you die 3 times than you reset the game and display the button again
-    if game_settings.reset_number <= 0:
+    if game_settings.lives <= 0:
         game_settings.game_active = False
-        game_settings.reset_number = 3
+        game_settings.lives = 3
+        game_settings.score = 0
+
+# change the speed everytime when you kill one group of alien
+def speed_increase(game_settings):
+    game_settings.alien_velocity *= 1.1
+    game_settings.alien_drop_speed *= 1.1
+    game_settings.bullet_velocity *= 1.1
+    game_settings.ship_velocity *= 1.1
+
+
+
 
 def get_aliens_in_a_row(game_settings, alien_width):
     available_space_x = game_settings.WINDOW_WIDTH - 2 * alien_width
@@ -118,7 +138,6 @@ def update_bullet(bullet_group, alien_group):
     for bullet in bullet_group.sprites():
         bullet.draw_bullet()
         bullet.display_bullet()
-        pygame.sprite.groupcollide(bullet_group, alien_group, True, True)
         
     for bullet in bullet_group.copy():
         if bullet.rect.bottom <= 0:

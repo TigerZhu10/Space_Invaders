@@ -24,17 +24,16 @@ class Settings:
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_attributes = 0, 0, self.bullet_width, self.bullet_height
-        self.bullet_num_allowed = 100
+        self.bullet_num_allowed = 10
 
         self.alien_velocity = 2
         self.alien_direction = 1  
-        self.alien_drop_speed = 60
+        self.alien_drop_speed = 20
 
         # setup button
         self.button_attributes = 0, 0, 250, 50
         self.button_color = (123,123,123)
 
-        self.reset_number = 3
-
+        self.round = 1
         self.score = 0
         self.lives = 3

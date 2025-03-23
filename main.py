@@ -6,6 +6,7 @@ from button import Button
 from pygame.sprite import Group
 from score import Score
 from lives import Lives
+from round import Round
 
 pygame.init()   
 # Game_settings Object that contains every attributes and method 
@@ -20,8 +21,6 @@ pygame.display.set_caption("Space Invader!")
 bullet_group = Group()
 alien_group = Group()
 
-score = Score(screen, game_settings, "Score: " + str(game_settings.score))
-
 button = Button(screen, game_settings, "play") 
 player_ship = Ship(screen, game_settings)
 
@@ -30,10 +29,12 @@ game_functions.create_alien_group(game_settings, screen, alien_group, player_shi
 
 
 def Game_runner():
-    game_running = True
+    game_running = True 
     while game_running:
         clock.tick(FPS)
+        round= Round(screen, game_settings, "Round: " + str(game_settings.round))
+        score = Score(screen, game_settings, "Score: " + str(game_settings.score))
         lives = Lives(screen, game_settings, "Lives: " + str(game_settings.lives))
         game_functions.check_mouse_key_events(player_ship, screen, bullet_group, game_settings, button)
-        game_functions.update_screen(screen, player_ship, game_settings, bullet_group, alien_group, button, score, lives)
+        game_functions.update_screen(screen, player_ship, game_settings, bullet_group, alien_group, button, score, lives, round)
 Game_runner()
