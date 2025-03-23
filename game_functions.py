@@ -48,8 +48,8 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
         alien_group.update()
         
         update_bullet(bullet_group, alien_group)
-        check_collisions(ship, alien_group, game_settings, screen, bullet_group, lives)
-        check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship)
+        check_ship_alien_collisions(ship, alien_group, game_settings, screen, bullet_group, lives)
+        check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship, round)
 
         score.display_score()
         lives.display_lives()
@@ -61,19 +61,23 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
     
     pygame.display.flip()
 
-def check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship):
+def check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship, round):
     collisions = pygame.sprite.groupcollide(bullet_group, alien_group, True, True)
     if collisions:
-        game_settings.score += 50
+        game_settings.score += 50 + 1 * game_settings.additional_score
         score.display_score()
     # When you kill all the aliens then recreate alien group
     if len(alien_group) == 0:  
         bullet_group.empty()
         create_alien_group(game_settings, screen, alien_group, ship, bullet_group)
+        # If clear all alien then go on second round and increase the speed
+        game_settings.round += 1
+        round.display_round()
         speed_increase(game_settings)
+        # when get to the next round then the score should add more when kill 1 alien
+        game_settings.additional_score += 10
     
-        
-def check_collisions(ship, alien_group, game_settings, screen, bullet_group, lives):
+def check_ship_alien_collisions(ship, alien_group, game_settings, screen, bullet_group, lives):
     # When the ship hit the alien you lose a life and reset the game
     if pygame.sprite.spritecollideany(ship, alien_group):
         alien_group.empty()
@@ -92,6 +96,7 @@ def game_reset(ship, game_settings, screen, alien_group, bullet_group):
         game_settings.game_active = False
         game_settings.lives = 3
         game_settings.score = 0
+        game_settings.round = 0
 
 # change the speed everytime when you kill one group of alien
 def speed_increase(game_settings):

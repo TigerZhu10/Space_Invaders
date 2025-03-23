@@ -28,7 +28,7 @@ class Settings:
 
         self.alien_velocity = 2
         self.alien_direction = 1  
-        self.alien_drop_speed = 20
+        self.alien_drop_speed = 25
 
         # setup button
         self.button_attributes = 0, 0, 250, 50
@@ -36,4 +36,5 @@ class Settings:
 
         self.round = 1
         self.score = 0
+        self.additional_score = 0
         self.lives = 3
