@@ -30,7 +30,7 @@ game_functions.create_alien_group(game_settings, screen, alien_group, player_shi
 
 sound = Sound("./assets/sounds/new_round.wav", "./assets/sounds/alien_fire.wav", "./assets/sounds/player_hit.wav", "./assets/sounds/alien_hit.wav")
 # Play enter sound 
-sound.new_round_sound()
+# sound.new_round_sound()
 
 def Game_runner():
     game_running = True 

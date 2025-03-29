@@ -17,10 +17,10 @@ class Settings:
         self.ship_velocity = 4
 
         #bullet color(子弹颜色)
-        self.bullet_color = (0,255,0)
+        self.bullet_color = (191, 16, 4)
 
         # setup bullets(设置子弹)
-        self.bullet_velocity = 8
+        self.bullet_velocity = 1
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_attributes = 0, 0, self.bullet_width, self.bullet_height
