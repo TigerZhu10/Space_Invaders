@@ -28,17 +28,19 @@ player_ship = Ship(screen, game_settings)
 
 game_functions.create_alien_group(game_settings, screen, alien_group, player_ship, bullet_group)
 
+sound = Sound("./assets/sounds/new_round.wav", "./assets/sounds/alien_fire.wav", "./assets/sounds/player_hit.wav", "./assets/sounds/alien_hit.wav")
+# Play enter sound 
+sound.new_round_sound()
 
 def Game_runner():
     game_running = True 
     while game_running:
         clock.tick(FPS)
 
-        sound = Sound(screen, "./assets/sounds/new_round.wav", "./assets/sounds/alien_fire.wav", "./assets/sounds/player_hit.wav", "./assets/sounds/alien_hit.wav")
         round= Round(screen, game_settings, "Round: " + str(game_settings.round))
         score = Score(screen, game_settings, "Score: " + str(game_settings.score))
         lives = Lives(screen, game_settings, "Lives: " + str(game_settings.lives))
 
-        game_functions.check_mouse_key_events(player_ship, screen, bullet_group, game_settings, button)
-        game_functions.update_screen(screen, player_ship, game_settings, bullet_group, alien_group, button, score, lives, round)
+        game_functions.check_mouse_key_events(player_ship, screen, bullet_group, game_settings, button, sound)
+        game_functions.update_screen(screen, player_ship, game_settings, bullet_group, alien_group, button, score, lives, round, sound)
 Game_runner()

@@ -12,7 +12,7 @@ def Key_up(ship, event):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
     
-def Key_down(ship, event, bullet_group, screen, game_settings):
+def Key_down(ship, event, bullet_group, screen, game_settings, sound):
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
@@ -20,14 +20,15 @@ def Key_down(ship, event, bullet_group, screen, game_settings):
 
     if event.key == pygame.K_SPACE:
         lunch_bullet(bullet_group, game_settings, screen, ship)
+        sound.fire_sound()
 
-def check_mouse_key_events(ship, screen, bullet_group, game_settings, button):
+def check_mouse_key_events(ship, screen, bullet_group, game_settings, button, sound):
     for ev in pygame.event.get():
         if ev.type == pygame.QUIT:
             sys.exit()
 
         elif ev.type == pygame.KEYDOWN and game_settings.game_active:
-            Key_down(ship, ev, bullet_group, screen, game_settings)
+            Key_down(ship, ev, bullet_group, screen, game_settings, sound)
         elif ev.type == pygame.KEYUP and game_settings.game_active: 
             Key_up(ship, ev)
         # if click the button down, get a position of the mouse cursor where 
@@ -37,7 +38,7 @@ def check_mouse_key_events(ship, screen, bullet_group, game_settings, button):
             if button.rect.collidepoint(mouse_x, mouse_y):
                 game_settings.game_active = True
 
-def update_screen(screen, ship, game_settings, bullet_group, alien_group, button, score, lives, round):
+def update_screen(screen, ship, game_settings, bullet_group, alien_group, button, score, lives, round, sound):
     screen.fill(game_settings.bg_color)
     
     if game_settings.game_active:
@@ -48,8 +49,8 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
         alien_group.update()
         
         update_bullet(bullet_group, alien_group)
-        check_ship_alien_collisions(ship, alien_group, game_settings, screen, bullet_group, lives)
-        check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship, round)
+        check_ship_alien_collisions(ship, alien_group, game_settings, screen, bullet_group, lives, sound)
+        check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship, round, sound)
 
         score.display_score()
         lives.display_lives()
@@ -61,11 +62,12 @@ def update_screen(screen, ship, game_settings, bullet_group, alien_group, button
     
     pygame.display.flip()
 
-def check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship, round):
+def check_bullet_alien_collisions(bullet_group, alien_group, score, game_settings, screen, ship, round, sound):
     collisions = pygame.sprite.groupcollide(bullet_group, alien_group, True, True)
     if collisions:
         game_settings.score += 50 + 1 * game_settings.additional_score
         score.display_score()
+        sound.alien_hit_sound()
     # When you kill all the aliens then recreate alien group
     if len(alien_group) == 0:  
         bullet_group.empty()
@@ -77,13 +79,14 @@ def check_bullet_alien_collisions(bullet_group, alien_group, score, game_setting
         # when get to the next round then the score should add more when kill 1 alien
         game_settings.additional_score += 10
     
-def check_ship_alien_collisions(ship, alien_group, game_settings, screen, bullet_group, lives):
+def check_ship_alien_collisions(ship, alien_group, game_settings, screen, bullet_group, lives, sound):
     # When the ship hit the alien you lose a life and reset the game
     if pygame.sprite.spritecollideany(ship, alien_group):
         alien_group.empty()
         # game_settings.reset_number -= 1
         game_settings.lives -= 1
         lives.display_lives()
+        sound.player_hit_sound()
         if len(alien_group) == 0:
             game_reset(ship, game_settings, screen, alien_group, bullet_group)
 
